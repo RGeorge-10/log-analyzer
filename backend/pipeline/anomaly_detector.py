@@ -31,7 +31,7 @@ def train_model(
         Trained IsolationForest model ready for scoring.
     """
     model = IsolationForest(
-        n_estimators=100,       # 100 isolation trees — robust default
+        n_estimators=50,        # 50 trees — sufficient for 4-dim features
         contamination=contamination,
         random_state=42,        # reproducible results
         n_jobs=-1,              # use all available CPU cores
@@ -45,7 +45,7 @@ def score_logs(model: IsolationForest, logs: list[dict]) -> list[dict]:
     Assign anomaly scores and labels to each log entry.
 
     Adds two keys in-place to every dict:
-        'anomaly_score' (float) — higher means more normal; negative → suspicious.
+        'anomaly_score' (float) — higher means more normal; negative -> suspicious.
         'is_anomaly'    (bool)  — True when Isolation Forest predicts -1.
 
     Args:
